@@ -1,10 +1,3 @@
-// Copyright 2020 Your Name <your_email>
-
-#include <gtest/gtest.h>
-
-TEST(Example, EmptyTest) {
-    EXPECT_TRUE(true);
-}
 // Copyright 2021 Vokin-labs <vokinsilok2305@mail.ru>
 
 #include <gtest/gtest.h>
@@ -12,9 +5,9 @@ TEST(Example, EmptyTest) {
 #include <header.hpp>
 
 TEST(PrintTable, PrintTable) {
-  std::fstream file{"file.json", std::ios::out};
+    std::fstream file{"file.json", std::ios::out};
 
-  std::string jsonString = R"({
+    std::string jsonString = R"({
     "items": [
     {
       "name": "Ivanov Petr",
@@ -44,29 +37,29 @@ TEST(PrintTable, PrintTable) {
     }
  })";
 
-  file << jsonString;
-  file.close();
+    file << jsonString;
+    file.close();
 
-  auto students = LoadFromFile("file.json");
-  Print(students, std::cout);
-  EXPECT_TRUE(true);
+    auto students = LoadFromFile("file.json");
+    Print(students, std::cout);
+    EXPECT_TRUE(true);
 }
 
 TEST(Errors, NonExistingFile) {
-  std::string exceptionString;
-  try {
-    auto students = LoadFromFile("non/existing/file.json");
-  } catch (std::runtime_error &e) {
-    exceptionString = e.what();
-  }
-  EXPECT_EQ(exceptionString, "non/existing/file.json not open");
+    std::string exceptionString;
+    try {
+        auto students = LoadFromFile("non/existing/file.json");
+    } catch (std::runtime_error &e) {
+        exceptionString = e.what();
+    }
+    EXPECT_EQ(exceptionString, "non/existing/file.json not open");
 }
 
 TEST(Errors, ItemsIsNotArray) {
-  std::fstream file{"file.json", std::ios::out};
-  std::string exceptionString;
+    std::fstream file{"file.json", std::ios::out};
+    std::string exceptionString;
 
-  std::string jsonString = R"({
+    std::string jsonString = R"({
     "items":
     {
       "name": "Ivanov Petr",
@@ -79,22 +72,22 @@ TEST(Errors, ItemsIsNotArray) {
     }
  })";
 
-  file << jsonString;
-  file.close();
+    file << jsonString;
+    file.close();
 
-  try {
-    auto students = LoadFromFile("file.json");
-  } catch (std::runtime_error &e) {
-    exceptionString = e.what();
-  }
-  EXPECT_EQ(exceptionString, "Items most be array type");
+    try {
+        auto students = LoadFromFile("file.json");
+    } catch (std::runtime_error &e) {
+        exceptionString = e.what();
+    }
+    EXPECT_EQ(exceptionString, "Items most be array type");
 }
 
 TEST(Errors, IncorrectMeta) {
-  std::fstream file{"file.json", std::ios::out};
-  std::string exceptionString;
+    std::fstream file{"file.json", std::ios::out};
+    std::string exceptionString;
 
-  std::string jsonString = R"({
+    std::string jsonString = R"({
     "items": [
     {
       "name": "Ivanov Petr",
@@ -124,13 +117,13 @@ TEST(Errors, IncorrectMeta) {
     }
  })";
 
-  file << jsonString;
-  file.close();
+    file << jsonString;
+    file.close();
 
-  try {
-    auto students = LoadFromFile("file.json");
-  } catch (std::runtime_error &e) {
-    exceptionString = e.what();
-  }
-  EXPECT_EQ(exceptionString, "meta_: count and items size mismatch");
+    try {
+        auto students = LoadFromFile("file.json");
+    } catch (std::runtime_error &e) {
+        exceptionString = e.what();
+    }
+    EXPECT_EQ(exceptionString, "meta_: count and items size mismatch");
 }
